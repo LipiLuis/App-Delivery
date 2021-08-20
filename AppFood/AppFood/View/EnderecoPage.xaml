@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="this"
+             BackgroundColor="Transparent"
+             x:Class="AppFood.View.EnderecoPage">
+    <ContentPage.Content>
+        <Frame  Margin="30" Padding="0" CornerRadius="20" BackgroundColor="WhiteSmoke">
+            <StackLayout Padding="0" Margin="0">
+                <Frame BackgroundColor="Indigo"  >
+                    <Label Text="Onde deseja receber o seu pedido?" FontSize="19" TextColor="White"/>
+                </Frame>
+                <StackLayout Padding="0">
+                    <Button ImageSource="Iconhome" Text="Buscar no Estabelecimento"  Command="{Binding BuscarEstabelecimentoCommand}" FontSize="16"
+                            TextColor="Indigo" BackgroundColor="White" BorderColor="Gray" Padding="20" />
+                    <Button ImageSource="LocationGren" Command="{Binding CadastroNovoEnderecoCommand}" Text="Cadastrar novo endereço" FontSize="16"
+                            BackgroundColor="White" BorderColor="Gray" TextColor="Indigo"  Padding="20"/>
+                </StackLayout>
+                <Frame BackgroundColor="Indigo" Margin="0" Padding="10" >
+                    <Label Text="Listar Endereços" CharacterSpacing="2" Margin="0" Padding="0"   HorizontalTextAlignment="Center" FontSize="19" TextColor="White"/>
+                </Frame>
+
+                    <CollectionView  ItemsSource="{Binding ListEndereco}" SelectedItem="{Binding EnderecoSelecionado}" HeightRequest="400" SelectionMode="Single">
+
+                        <CollectionView.EmptyView>
+                            <Label
+                                FontAttributes="Italic"
+                                FontSize="17"
+                                TextColor="Gray"                       
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Center"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Text="Nenhum endereço cadastrado" />
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView Padding="0,5">
+                                    <Frame Margin="0"  BorderColor="Gray">
+                                        <FlexLayout  >
+                                            <Image Source="LocationRed"/>
+                                        <Label Margin="0,0">
+                                            <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding Rua}" TextColor="Black" FontSize="17" />
+                                                        <Span Text=", N° " TextColor="Black" FontSize="17" />
+                                                        <Span Text="{Binding Numero}" TextColor="Black" FontSize="17" />
+                                                        <Span Text=" - " TextColor="Black" FontSize="19" />
+                                                        <Span Text="{Binding Bairro}" TextColor="Black" FontSize="17" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </FlexLayout>
+                                    </Frame>
+                                </ContentView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                <Grid ColumnDefinitions="*,*" VerticalOptions="EndAndExpand" HeightRequest="60" >
+                    <Button  Grid.Column="1" Margin="0"  Command="{Binding VoltarTelaCommand}" 
+                                VerticalOptions="Fill" HorizontalOptions="Fill"  Text="Voltar" BackgroundColor="Red"
+                                TextColor="White" FontSize="17"/>
+                    <Button  Grid.Column="0" Margin="0"  Command="{Binding CadastroPedidoCommand}" 
+                                CommandParameter="{Binding EnderecoSelecionado}" 
+                                VerticalOptions="Fill" HorizontalOptions="Fill"  Text="Continuar" BackgroundColor="Green"
+                                TextColor="White" FontSize="17"/>
+
+                </Grid>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

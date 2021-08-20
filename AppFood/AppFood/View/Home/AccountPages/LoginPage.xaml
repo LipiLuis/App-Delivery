@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="FloralWhite"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppFood.View.Account.LoginPage">
+    <ContentPage.Content>
+        <RelativeLayout BackgroundColor="Transparent"  HorizontalOptions="Center" VerticalOptions="Center" >
+            <RelativeLayout.Triggers>
+                <DataTrigger TargetType="RelativeLayout" Binding="{Binding Source={x:Reference txtEmail}, Path=IsFocused}" Value="True">
+                    <Setter Property="HorizontalOptions" Value="Start"/>
+                    <Setter Property="VerticalOptions" Value="Start"/>
+                    <Setter Property="Margin" Value="0,130"/>
+                </DataTrigger>
+                <DataTrigger TargetType="RelativeLayout" Binding="{Binding Source={x:Reference txtSenha}, Path=IsFocused}" Value="True">
+                    <Setter Property="HorizontalOptions" Value="Start"/>
+                    <Setter Property="VerticalOptions" Value="Start"/>
+                    <Setter Property="Margin" Value="0,130"/>
+                </DataTrigger>
+            </RelativeLayout.Triggers>
+            <StackLayout BackgroundColor="Transparent" >
+                <Label HorizontalOptions="Center" VerticalOptions="Center"   BackgroundColor="Transparent" >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Q" TextColor="Indigo" FontAttributes="Bold" FontSize="50"/>
+                            <Span Text="uero" FontSize="25" FontAttributes="Italic" TextDecorations="Underline" TextColor="Purple"/>
+                            <Span Text="F" TextColor="Indigo" FontAttributes="Bold" FontSize="30"/>
+                            <Span Text="oo" CharacterSpacing="4" FontSize="25" FontAttributes="Italic" TextDecorations="Underline" TextColor="Purple"/>
+                            <Span Text="D" TextColor="Indigo" FontAttributes="Bold" FontSize="25"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <StackLayout Padding="30,20">
+                    <!--<Label Text="Log In" FontSize="25" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" Margin="0" />-->
+                    <Frame CornerRadius="20" Margin="0,20">
+                        <FlexLayout>
+                            <Image Source="userLogin" WidthRequest="30" Margin="5,0" />
+                            <Entry x:Name="txtEmail" Placeholder="E-mail ou numero do telefone" Text="{Binding Email}" WidthRequest="300" FontSize="17" Margin="4,0,0,0"
+                                   TextColor="Indigo" PlaceholderColor="Indigo" />
+                        </FlexLayout>
+                    </Frame>
+                    <Frame CornerRadius="20">
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding Source={x:Reference txtSenha}, Path=Text.Length}" Value="8">
+                                <Setter Property="BorderColor" Value="GreenYellow"/>
+                            </DataTrigger>
+                        </Frame.Triggers>
+                        <FlexLayout>
+                            <Image Source="lock" WidthRequest="30" Margin="5,0" />
+                            <Entry x:Name="txtSenha" Placeholder="Digite a Senha" IsPassword="True" Text="{Binding Senha}" WidthRequest="350"  FontSize="17" Margin="4,0,0,0" TextColor="Indigo"
+                                   PlaceholderColor="Indigo"/>
+                        </FlexLayout>
+                    </Frame>
+
+                    <Button Margin="15" HorizontalOptions="CenterAndExpand" Command="{Binding LoginAccountCommand}" TextColor="White" Padding="80,15"
+                            CornerRadius="30" FontSize="20" BackgroundColor="Indigo" Text="LogIn" />
+
+                    <BoxView HeightRequest="2" Margin="20" BackgroundColor="Gray" />
+
+                    <Button Margin="0" Text="Criar conta nova" FontSize="18" Command="{Binding CadastroCommand}" BackgroundColor="Transparent" FontAttributes="Bold" TextColor="Gray"
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+                    <!--<Label Text="ou" FontSize="18" TextColor="Indigo" Margin="10" HorizontalOptions="Center"
+                           VerticalOptions="Center" />-->
+                    <!--<StackLayout HorizontalOptions="Center" Orientation="Horizontal" HeightRequest="60" VerticalOptions="Center" BackgroundColor="Transparent">
+                        <Frame CornerRadius="40">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding OnLoginWithFacebookCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Image Source="Facebook" Margin="-20"/>
+                        </Frame>
+
+                        <Frame CornerRadius="40">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer />
+                            </Frame.GestureRecognizers>
+                            <Image Source="Google" Margin="-20"/>
+                        </Frame>
+                        
+                    </StackLayout>-->
+                </StackLayout>
+            </StackLayout>
+
+        </RelativeLayout>
+
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="false"
+             BackgroundColor="WhiteSmoke"            
+             x:Name="this"
+             x:Class="AppFooD.View.EstabelecimentoPage">
+    <ContentPage.Content>
+        <StackLayout >
+            <Frame BackgroundColor="Indigo" HeightRequest="50">
+                <Image Source="QueroFood" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            </Frame>
+            <Frame Margin="0"  Padding="0">
+                <Grid ColumnDefinitions="*,40" Padding="20">
+                    <Entry BackgroundColor="Transparent"  Grid.Column="0" 
+                           Text="{Binding SearchWord}" Margin="-10" TextColor="Indigo" PlaceholderColor="Indigo"
+                           Placeholder="Buscar Estabelecimento" FontSize="20"  />
+                    <Image Source="pesquisa" Grid.Column="1" Margin="-10"  BackgroundColor="Transparent"/>
+                </Grid>
+            </Frame>
+
+            <CollectionView HorizontalOptions="Center" VerticalOptions="Center" ItemsSource="{Binding ListEstabelecimento}"  Margin="5"  SelectionMode="Single" >
+                <CollectionView.EmptyView>
+
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        TextColor="Indigo"                       
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        Text="Nenhum Estabelecimento!" />
+
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="0" Margin="0">
+                            <Frame  Margin="7" BorderColor="Indigo" HeightRequest="100"  CornerRadius="15">
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.ExibirEstabelecimentoCommand}" CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid ColumnDefinitions="1*,1,3*" RowDefinitions="*,20">
+                                    
+                                    <Image Grid.Column="0" HeightRequest="100"  Source="{Binding Logo}"  HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="100"/>
+                                    <Line  Grid.Column="1" Margin="0,-20,0,-7" BackgroundColor="Indigo"   X1="0" X2="0" Y1="0" Y2="96"/>
+                                    
+                                    <Label VerticalOptions="StartAndExpand" Padding="10,0" Grid.Column="2">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Nome}" FontSize="20"  TextColor="Black" FontAttributes="Bold"/>
+                                                <Span Text="&#10;" />
+                                                <Span Text="{Binding ProdutoEnums}" FontSize="13" TextColor="Gray"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                  
+                                        <Grid ColumnDefinitions="1*,1*,1*"  Grid.Row="1" Grid.ColumnSpan="3" HorizontalOptions="Center"    VerticalOptions="Center">
+                                            
+                                            <Image Source="star" Grid.Column="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                            <Label Text="{Binding Star}" Grid.Column="0" TextColor="YellowGreen" FontSize="14"/>
+
+                                        <StackLayout Orientation="Horizontal" Grid.Column="1"  VerticalOptions="Start" HorizontalOptions="Center">
+                                            <Label x:Name="labeltxt"   Text="{Binding AbertoFechado}" TextColor="Green" FontAttributes="Bold"  FontSize="14">
+                                                    <Label.Triggers>
+                                                        <Trigger TargetType="Label" Property="Text" Value="Fechado">
+                                                            <Setter Property="TextColor" Value="Red"/>
+                                                        </Trigger>
+                                                    </Label.Triggers>
+                                                </Label>
+                                            <Image Source="{Binding IconLocation}"  VerticalOptions="End" HorizontalOptions="Center" Grid.Column="1" />
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" Grid.Column="2"  HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand">
+                                                <Label  FontAttributes="Bold"  FontSize="14">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="R$ " TextColor="Indigo"/>
+                                                            <Span Text="{Binding PrecoDelivery, StringFormat='{0:F2}'}" TextColor="Indigo" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Image Source="shipping"  TranslationX="5" HeightRequest="21" WidthRequest="21"  />
+                                            </StackLayout>
+                                        </Grid>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <StackLayout Orientation="Horizontal" BackgroundColor="Indigo" Margin="0,-30,0,0" HorizontalOptions="Fill" VerticalOptions="EndAndExpand" HeightRequest="60">
+                <Button HorizontalOptions="StartAndExpand" ImageSource="casa" TextColor="White" VerticalOptions="Start" HeightRequest="80"
+                        Command="{Binding ChamarTelaEstabelecimento}" BackgroundColor="Indigo"/>
+                <Button HorizontalOptions="CenterAndExpand" ImageSource="Food" TextColor="White" VerticalOptions="Center" HeightRequest="80"
+                        Command="{Binding ChamarTelaPedidosCommand}" BackgroundColor="Indigo"/>
+                <Button HorizontalOptions="EndAndExpand" ImageSource="users" TextColor="White" VerticalOptions="CenterAndExpand" HeightRequest="80"
+                        Command="{Binding ChamarTelaConfigUserCommand}" BackgroundColor="Indigo"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

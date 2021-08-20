@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="Transparent"          
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="this"
+             x:Class="AppFooD.View.CadastroPedidoPage">
+
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <Frame>
+                <StackLayout Orientation="Horizontal" Padding="0" Margin="0">
+                    <Button ImageSource="IconBackIndigo" Command="{Binding VoltarPageCommand}" BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Start"/>
+                    <Label Text="Informações do Pedido" TextColor="Indigo" FontSize="22" VerticalOptions="End" HorizontalOptions="Center"/>
+                </StackLayout>
+            </Frame>
+            <ScrollView>
+                <Grid RowDefinitions="auto,*,100">
+                    <Grid  ColumnDefinitions="1*,1*" Grid.Row="0"  Padding="20">
+                        <StackLayout>
+                            <Label  Text="Sub Total: " TextColor="Gray" FontSize="20" />
+                            <Label  Text="Frete: " TextColor="Gray" FontSize="20" >
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference lblFrete}, Path=BindingContext.Frete}" Value="0">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <Label x:Name="labelforma" Text="Pagamento:" TextColor="Gray"  BackgroundColor="Transparent" FontSize="20"  IsVisible="true">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference labelCartao}, Path=BindingContext.Isbusy}" Value="False">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <Label  Text="Total: " TextColor="Black" FontSize="20" FontAttributes="Bold" />
+                            <Label Text="Endereço:" TextColor="Gray" FontSize="17">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference labelforma}, Path=BindingContext.IsVisibleAddress}" Value="False">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1">
+                            <Label  TextColor="Black" FontSize="20" HorizontalTextAlignment="Center">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{} R$ {0:F2}">
+                                        <Binding Path="SubTotal" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                            <Label x:Name="lblFrete" TextColor="Black" FontSize="20" HorizontalTextAlignment="Center" >
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference labelforma}, Path=BindingContext.Frete}" Value="0">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{} R$ {0:F2}">
+                                        <Binding Path="Frete" />
+                                    </MultiBinding>
+
+                                </Label.Text>
+                            </Label>
+
+                            <!--<Image Source="{Binding CartaoSelect.Logo}" Margin="-5"/>-->
+                            <Label x:Name="labelCartao" Text="{Binding CartaoSelect.Nome}" BackgroundColor="Transparent" TextColor="Black" FontSize="20" HorizontalTextAlignment="Center" IsVisible="true" >
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference labelforma}, Path=BindingContext.Isbusy}" Value="False">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+
+                            <Label TextColor="Green" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center" >
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{} R$ {0:F2}">
+                                        <Binding Path="Total" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                            <Label TextColor="Gray" FontSize="13" Margin="-20,5,0,0">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference labelforma}, Path=BindingContext.IsVisibleAddress}" Value="False">
+                                        <Setter Property="IsVisible" Value="False"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding EnderecoSelect.Rua}"/>
+                                        <Span Text=" N° "/>
+                                        <Span Text="{Binding EnderecoSelect.Numero}"/>
+                                        <Span Text=" , "/>
+                                        <Span Text="{Binding EnderecoSelect.Bairro}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </Grid>
+
+                    <Grid RowDefinitions="78,*,78,300" Grid.Row="1">
+                        <Frame Grid.Row="0" Margin="0,0" BorderColor="WhiteSmoke" HasShadow="False">
+                            <Label Text="Forma de Pagamento"  TextColor="Indigo" FontSize="22" VerticalOptions="End" HorizontalOptions="Center"/>
+                        </Frame>
+                        <Grid ColumnDefinitions="1*, 1*" Padding="0" Margin="0" Grid.Row="1" HeightRequest="150">
+                            <Frame  HasShadow="False" Grid.Column="0" Margin="5" Padding="3,10"  >
+                                <Button ImageSource="CellPhone"   ContentLayout="Top,20"  TextColor="Indigo" FontSize="17" Margin="0"  Text="Pagamento no App" BackgroundColor="White"   Command="{Binding PagamentoAPPCommand}"/>
+                            </Frame>
+                            <Frame  HasShadow="False" Grid.Column="1" Margin="10"  Padding="2,10">
+                                <Button ImageSource="cashdelivery" ContentLayout="Top,18" TextColor="Indigo" FontSize="15" Margin="0"  Text="Pagamento na Entrega" BackgroundColor="Transparent"   Command="{Binding PagamentoEntregaCommand}"/>
+                            </Frame>
+                        </Grid>
+                        <Frame Grid.Row="2" Margin="0" BorderColor="WhiteSmoke" HasShadow="False">
+                            <Label Text="Produtos" TextColor="Indigo" FontSize="22" VerticalOptions="End" HorizontalOptions="Center"/>
+                        </Frame>
+
+                        <CollectionView ItemsSource="{Binding ProdutoPedido}" Grid.Row="3"  BackgroundColor="White">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentView Padding="2" Margin="0">
+                                        <Frame BackgroundColor="White" Margin="0">
+                                            <Grid ColumnDefinitions="60, 1* ,50" Padding="0" Margin="0">
+                                                <Frame HasShadow="False" Margin="-10" BorderColor="Black" BackgroundColor="Black" Padding="10" WidthRequest="150" HeightRequest="40"  CornerRadius="5">
+                                                    <Image Source="{Binding Logo }" Margin="-20"   HorizontalOptions="Start" BackgroundColor="Transparent"/>
+                                                </Frame>
+                                                <Label Grid.Column="1" TextColor="Black" FontSize="16" HorizontalTextAlignment="Center" Padding="10,0" VerticalTextAlignment="Center" HorizontalOptions="Start" VerticalOptions="Start" >
+                                                    <Label.Text>
+                                                        <MultiBinding StringFormat="{} {0}">
+                                                            <Binding Path="Nome"/>
+                                                        </MultiBinding>
+                                                    </Label.Text>
+                                                </Label>
+                                                <Label  HorizontalOptions="End" VerticalOptions="End" FontSize="16" Grid.Column="2" TextColor="Black">
+                                                    <Label.Text>
+                                                        <MultiBinding StringFormat="{} x {0}">
+                                                            <Binding Path="Qtde"/>
+                                                        </MultiBinding>
+                                                    </Label.Text>
+                                                </Label>
+
+                                            </Grid>
+                                        </Frame>
+                                    </ContentView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                    </Grid>
+                    <Frame CornerRadius="10" BorderColor="Indigo" Grid.Row="2">
+                        <Editor Placeholder="Alguma observação..." BackgroundColor="Transparent" HeightRequest="100"  Text="{Binding Observacao}"  PlaceholderColor="Gray" TextColor="Black" AutoSize="TextChanges"/>
+                    </Frame>
+                </Grid>
+
+            </ScrollView>
+            <Button Text="CONFIRMAR" x:Name="BtnConcluir" Command="{Binding Source={x:Reference this}, Path=BindingContext.ConfirmarPedidoCommand}" 
+                            CommandParameter="{Binding Pedidos}" Margin="0" BackgroundColor="Green"
+                            TextColor="White" FontSize="22"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             BackgroundColor="White"
+             x:Class="AppFood.View.DetalhePedidoPage">
+    <ContentPage.Content>
+        <Grid RowDefinitions ="70,140,40,auto,1,*"  Padding="0" Margin="0">
+            
+            <Frame BackgroundColor="Indigo" Grid.Row="0"  CornerRadius="0">
+                <Grid ColumnDefinitions="1*,*, 1*">
+                    <Button ImageSource="IconBack" Grid.Column="0" Padding="0" Margin="-20,0" BackgroundColor="Transparent" Command="{Binding VoltarPageCommand}"  
+                            HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"/>
+                    <Label Text="{Binding pedido.CodigoPedido}" Grid.Column="1"  FontSize="Body" TextDecorations="None" CharacterSpacing="1" TextColor="Violet" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent"/>
+
+                </Grid>
+            </Frame>
+            
+            <StackLayout Grid.Row="1" Margin="0" Padding="0">
+                    <Frame HasShadow="False">
+                        <Grid ColumnDefinitions="100,1*,*" >
+
+                            <Frame  Margin="0" Grid.Column="0" Padding="0" HeightRequest="80" WidthRequest="80" CornerRadius="40"  HorizontalOptions="Start">
+                                <Image Source="{Binding estabelecimento.Logo}" Aspect="AspectFit" />
+                            </Frame>
+                        <Label x:Name="lblTrackDelivery" Text="{Binding  pedido.EnumTrackDelivery}"  FontSize="16"
+                               FontAttributes="Bold" Grid.ColumnSpan="3" HorizontalOptions="End" Margin="10,-10" TextColor="Black">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference lblTrackDelivery},
+                                       Path=Text}"  Value="Pendente">
+                                    <Setter Property="Label.TextColor" Value="OrangeRed"/>
+                                </DataTrigger>
+
+                            </Label.Triggers>
+                        </Label>
+                            <Label Margin="-10,0"  Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Start" TextColor="Black">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                    <Span Text="{Binding  estabelecimento.Nome}"  FontSize="16" FontAttributes="Bold"/>
+                                    <Span Text="&#10;"/>
+                                    <Span Text="&#10;"/>
+                                    <!--Ver oque colocar aqui estou entre a data do pedido e  TrackDelivery-->
+                                    <Span Text="{Binding pedido.DataPedido ,StringFormat='{0:HH:MM}'}"  FontSize="14"/>
+                                    <Span Text=" / "  FontSize="18"/>
+                                        <Span Text="{Binding pedido.DataPrevisaoEntrega ,StringFormat='{0:HH:MM}'}"  FontSize="14"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label BackgroundColor="Transparent" Text="Ligar para o estabelecimento" FontAttributes="Italic" TextColor="DarkBlue" FontSize="15"
+                                   Grid.Column="2" HorizontalOptions="EndAndExpand" Margin="-20"  VerticalOptions="EndAndExpand" />
+                            <Image Source="ContatoTell" Grid.Column="2" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Margin="-2,0"/>
+                            
+                        </Grid>
+                    </Frame>
+            </StackLayout>
+            <Button Margin="0,-24,0,0" Grid.Row="2" BackgroundColor="White" IsVisible="true" BorderColor="WhiteSmoke" Text="Cancelar o Pedido" FontSize="18" TextColor="Gray"/>
+            
+            <ScrollView  Grid.Row="3">
+                <StackLayout   >
+                    <Frame BorderColor="WhiteSmoke" HasShadow="False" >
+                    <xct:Expander>
+                        <xct:Expander.Header>
+                            <Label Text="Produtos"  TextColor="LightSlateGray"  HorizontalTextAlignment="Start" CharacterSpacing="1"  FontSize="17" FontAttributes="Italic" Margin="5"/>
+                        </xct:Expander.Header>
+                        <CollectionView  ItemsSource="{Binding pedido.itensPedido}" HeightRequest="250" BackgroundColor="White" >
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <FlexLayout Margin="0" >
+                                        <!--<BoxView BackgroundColor="Gray" HeightRequest="0.1" Margin="0,0"/>-->
+                                        <Frame BorderColor="GhostWhite"  HasShadow="False" BackgroundColor="Transparent">
+                                            <Grid ColumnDefinitions="40,*,40">
+                                                <Image Source="{Binding Produto.Logo}" Grid.Column="0" Margin="0"/>
+                                                <Label TextColor="Black" Grid.Column="1">
+                                                    <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding Produto.Nome}" FontSize="13"/>
+                                                                <Span Text="&#10;" />
+                                                                <Span Text="{Binding Produto.Descricao}" TextColor="Gray" FontSize="11"/>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                </Label>
+                                                <Label Text="{Binding Produto.Preco, StringFormat='{0:F2}'}" Grid.ColumnSpan="2" HorizontalOptions="EndAndExpand" 
+                                               VerticalOptions="End" Margin="-40,-10" TextColor="Black"/>
+
+                                                <Label  Grid.ColumnSpan="2" HorizontalOptions="EndAndExpand" 
+                                               VerticalOptions="Start" Margin="-10" TextColor="Black">
+                                                    <Label.FormattedText>
+                                                            <FormattedString >
+                                                                <Span Text="x" TextColor="Gray" FontSize="14"/>
+                                                                <Span Text="{Binding Produto.Qtde}" FontSize="16" TextColor="Black"/>
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+                                        </Frame>
+                                    </FlexLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </xct:Expander>
+                </Frame>
+                <StackLayout >
+                    <Frame  HasShadow="False" BorderColor="White">
+                        <Grid ColumnDefinitions="1*,1*" BackgroundColor="White"  RowDefinitions="1*,1*,1*" Margin="0" Padding="5,0">
+                            <!--<Label Text="Total"  TextColor="LightSlateGray" Grid.Row="0" HorizontalTextAlignment="Start" CharacterSpacing="1"  FontSize="17" FontAttributes="Italic" Margin="5"/>-->
+                            <Label Text="Produtos :" FontSize="14" TextColor="DarkGray" Grid.Column="0" Grid.Row="0"/>
+                            <Label Text="Entrega : " FontSize="14" TextColor="DarkGray" Grid.Column="0" Grid.Row="1"/>
+                            <Label Text="Total :" FontSize="14" TextColor="DarkGray" Grid.Column="0" Grid.Row="2"/>
+                            <!--<Label Text="pagamento :" FontSize="14" TextColor="Black" Grid.Column="0" Grid.Row="3"/>-->
+
+                            <Label Text="{Binding pedido.Total}" Grid.Row="0" Grid.Column="1"  HorizontalOptions="End" VerticalOptions="Center" TextColor="Black"/>
+                            <Label Text="{Binding estabelecimento.PrecoDelivery, StringFormat='{0:F2}'}"  HorizontalOptions="EndAndExpand" VerticalOptions="Center" Grid.Row="1" Grid.Column="1" TextColor="Black"/>
+                                <Label Text="{Binding pedido.Total, StringFormat='{0:F2}'}" Grid.Row="2" Grid.Column="1"  HorizontalOptions="EndAndExpand" VerticalOptions="Center" TextColor="Black"/>
+                            <!--<Label Text="{Binding pedido.Cartao.Nome}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="3" Grid.Column="1" TextColor="Black"/>-->
+                        </Grid>
+                    </Frame>
+                    <Frame BackgroundColor="White" BorderColor="White" HasShadow="False">
+                        <StackLayout Orientation="Horizontal" >
+                            <Label Text="pagamento :" FontSize="14" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" TextColor="Black" />
+                                <FlexLayout HorizontalOptions="EndAndExpand"  VerticalOptions="EndAndExpand" >
+                                    <Image Source="{Binding pedido.Cartao.Logo}"/>
+                                    <Label Text="{Binding pedido.Cartao.Nome}" FontSize="14" TextColor="Black" />
+                                </FlexLayout>
+                           
+                        </StackLayout>
+                    </Frame>
+                    <Frame BorderColor="White" Margin="0,-5" Padding="0" BackgroundColor="White" HasShadow="False" Grid.Row="6">
+                        <StackLayout Padding="10,0">
+                            <Label TextColor="Black">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Endereço de entrega"   FontSize="17" TextColor="LightSlateGray" />
+                                        <Span Text="&#10;"/>
+                                        <Span Text="{Binding estabelecimento.endereco.Rua}"/>
+                                        <Span Text=", N° "/>
+                                        <Span Text="{Binding estabelecimento.endereco.Numero}"/>
+                                        <Span Text=", "/>
+                                        <Span Text="{Binding estabelecimento.endereco.Bairro}"/>
+                                        <Span Text="&#10;"/>
+                                        <Span Text="{Binding estabelecimento.endereco.PontoReferencia}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </Frame>
+                    <!--<Button BackgroundColor="White" HeightRequest="70" Command="{Binding RefazerPedidoCommand}" CommandParameter="{Binding pedido}" BorderColor="White" Text="Refazer Pedido" FontSize="17" TextColor="Red"/>-->
+                    <Label Padding="10,0" VerticalOptions="End" >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Realizado  " TextColor="Gray" />
+                                <Span  Text="{Binding pedido.DataPedido, StringFormat='{0:f}'}" TextColor="Gray"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+                <!--<BoxView BackgroundColor="White" HeightRequest="0.1" Grid.Row="4" Margin="0,0"/>-->
+            </ScrollView>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

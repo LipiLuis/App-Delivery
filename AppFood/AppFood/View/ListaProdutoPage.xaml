@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="WhiteSmoke"
+             NavigationPage.HasNavigationBar="False"
+             x:Name="this"
+             x:Class="AppFooD.View.ListaProdutoPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="Indigo" CornerRadius="0" Padding="3" Margin="0 " >
+                <Grid ColumnDefinitions="1*,1*" HeightRequest="80">
+                    <Frame Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" Padding="-10" VerticalOptions="Center">
+                        <Button ImageSource="IconBack"  Command="{Binding VoltarPageCommand}" HorizontalOptions="Start" BackgroundColor="Transparent" VerticalOptions="Start"/>
+                    </Frame>
+                    <Frame Grid.Column="2" CornerRadius="20" BorderColor="WhiteSmoke"  BackgroundColor="Transparent" HorizontalOptions="End" VerticalOptions="End" Margin="10"  Padding="0" >
+                        <Button ImageSource="shoppingcart" Padding="10" TextColor="WhiteSmoke"  Text="{Binding QtdItensPedido}"   
+                                  BackgroundColor="Transparent"  Command="{Binding ExibirCarrinhoProdutosCommand}"/>
+                    </Frame>
+                </Grid>
+            </Frame>
+
+            
+            <CollectionView   ItemsSource="{Binding ListaProdutos}" BackgroundColor="GhostWhite" ItemsLayout="VerticalGrid,2" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout  Padding="15" Margin="0">
+                            <Frame HeightRequest="250" CornerRadius="10" Padding="10" RotationY="2" BorderColor="Indigo" >
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.ExibirProdutoCommand}" CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid RowDefinitions="100,*" Padding="0" Margin="0">
+                                    <Frame Padding="0" Margin="0" CornerRadius="10">
+                                        <Image BackgroundColor="Black" Aspect="AspectFill" Margin="0" Source="{Binding Logo}" />
+                                    </Frame>
+                                    <StackLayout  Grid.Row="1">
+                                        <Label Text="{Binding Nome}" FontSize="16"  TextColor="Black" />
+                                        <Label Text="{Binding Descricao}" FontSize="12" MaxLines="3"  TextColor="Gray"/>
+                                        <Label VerticalOptions="EndAndExpand" HorizontalOptions="End">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="R$ : " FontSize="15"  TextColor="Gray"/>
+                                                    <Span Text="{Binding Preco, StringFormat='{0:F2}'}" FontSize="15" TextColor="Indigo"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

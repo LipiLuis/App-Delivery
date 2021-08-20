@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White"
+             x:Class="AppFood.View.Home.ConfigUserPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Transparent"  Padding="0" Margin="0">
+            <Frame BackgroundColor="Indigo" HeightRequest="30">
+            </Frame>
+            <ScrollView x:Name="UserLogado" TranslationY="-30" Padding="0" Margin="0" IsVisible="False">
+                <ScrollView.Triggers>
+                    <DataTrigger TargetType="ScrollView" Binding="{Binding Account.Logado}" Value="True">
+                        <Setter Property="IsVisible" Value="True"/>
+                    </DataTrigger>
+                </ScrollView.Triggers>
+                <StackLayout Padding="0" Margin="0" >
+                    <Frame BackgroundColor="White" Padding="20" Margin="10,0" CornerRadius="20" HeightRequest="140">
+                        <Grid ColumnDefinitions="*,100">
+                            <Button BackgroundColor="Transparent" Text="Sair" Command="{Binding SairContaCommand}" TextColor="Red" FontSize="15"  Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" />
+
+                            <StackLayout  Padding="0" Margin="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
+
+                                <Frame CornerRadius="40" BackgroundColor="Indigo" Grid.Column="0" HeightRequest="30"
+                                   WidthRequest="30" TranslationY="-10" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                    <!--<Image />-->
+                                    <Label Text="LF" TextColor="White" HorizontalTextAlignment="Center" FontAttributes="Bold" VerticalTextAlignment="Center" FontSize="22" Margin="-20"/>
+                                </Frame>
+                                <Label  TextColor="Black" FontSize="20" VerticalOptions="End" FontAttributes="Bold" HorizontalOptions="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString >
+                                            <Span Text="{Binding Account.Nome}"/>
+                                            <Span Text=" "/>
+                                            <Span Text="{Binding Account.Sobrenome}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Text="{Binding Account.Numero}" TextColor="Gray" FontSize="12" VerticalOptions="End" HorizontalOptions="Center" />
+                            </StackLayout>
+                        </Grid>
+
+                    </Frame>
+                    <Frame Margin="0,10" Padding="0" HasShadow="False" BorderColor="WhiteSmoke">
+                        <StackLayout Margin="0" Padding="0" BackgroundColor="Transparent" >
+                            <Label Padding="10" BackgroundColor="White" Text="Minha Conta" TextColor="Gray" FontSize="14" VerticalOptions="Fill"/>
+                            <Frame  Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="bell"/>
+                                    <Label Text="Notificões" TextColor="Gray"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+
+                                </StackLayout>
+                            </Frame>
+                            <Frame Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="endereco" />
+                                    <Label Text="Endereço" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="estrela"/>
+                                    <Label Text="Avaliações" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame  Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="cartaocredito"/>
+                                    <Label Text="Cartões" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+
+                                </StackLayout>
+                            </Frame>
+                            <Frame Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="editar"/>
+                                    <Label Text="Editar perfil" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+
+                                </StackLayout>
+                            </Frame>
+
+                            <Frame  Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image  Source="Celular"/>
+                                    <Label Text="Alterar telefone" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="chave"/>
+                                    <Label Text="Alterar Senha" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Margin="0,0,0,0" Padding="0" HasShadow="False" BorderColor="WhiteSmoke">
+                        <StackLayout Margin="0" Padding="0" BackgroundColor="Transparent" >
+                            <Label Padding="10" BackgroundColor="White" Text="Ajustes" TextColor="Gray" FontSize="14" VerticalOptions="Fill"/>
+                            <Frame  Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="callcenter"/>
+                                    <Label Text="Ajuda" TextColor="LightGray"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+
+                                </StackLayout>
+                            </Frame>
+                            <Frame Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="configuracao" />
+                                    <Label Text="Configurações" TextColor="LightGray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+                                </StackLayout>
+                            </Frame>
+                            <Frame Padding="10,0" Margin="0" Style="{x:StaticResource FrameConfig}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="restaurante"/>
+                                    <Label Text="Sugerir restaurabtes" TextColor="LightGray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Image Source="SetaDireita" HorizontalOptions="EndAndExpand"/>
+                                </StackLayout>
+                            </Frame>
+
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </ScrollView>
+            <Frame x:Name="frmLogin" BackgroundColor="White" BorderColor="Indigo" RotationY="5" HorizontalOptions="CenterAndExpand" Margin="0,20"
+                   VerticalOptions="EndAndExpand" HasShadow="False" CornerRadius="20" HeightRequest="300">
+                <Frame.Triggers>
+                    <DataTrigger TargetType="Frame" Binding="{Binding Account.Logado}" Value="True">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                </Frame.Triggers>
+                <StackLayout Padding="0,20" Margin="0,20" >
+                    <Button BackgroundColor="Transparent"
+                            Command="{Binding ChamarTelaCadastro}" Grid.Column="1"
+                            Text="Cadastrar-se com seu email" TextColor="Indigo" FontSize="15"  HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+                    <Button BackgroundColor="Transparent"
+                            Command="{Binding ChamarTelaLogin}" Text="Já tenho uma conta"
+                            TextColor="Indigo" FontSize="15"  Grid.Column="0" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+                </StackLayout>
+            </Frame>
+            
+            <StackLayout Orientation="Horizontal" BackgroundColor="Indigo" Margin="0,-30,0,0" HorizontalOptions="Fill" VerticalOptions="EndAndExpand" HeightRequest="60">
+                <Button HorizontalOptions="StartAndExpand" ImageSource="casa" TextColor="White" VerticalOptions="Start" HeightRequest="80"
+                        Command="{Binding ChamarTelaEstabelecimento}" BackgroundColor="Indigo"/>
+                <Button HorizontalOptions="CenterAndExpand" ImageSource="Food" TextColor="White" VerticalOptions="Center" HeightRequest="80"
+                        Command="{Binding ChamarTelaPedidosCommand}" BackgroundColor="Indigo"/>
+                <Button HorizontalOptions="EndAndExpand" ImageSource="users" TextColor="White" VerticalOptions="CenterAndExpand" HeightRequest="80"
+                        Command="{Binding ChamarTelaConfigUserCommand}" BackgroundColor="Indigo"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

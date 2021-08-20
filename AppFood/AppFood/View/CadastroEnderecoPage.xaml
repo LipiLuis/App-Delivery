@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="Transparent"                    
+             x:Class="AppFooD.View.CadastroEnderecoPage">
+    <ContentPage.Content>
+        <FlexLayout Margin="0">
+            <Frame    BorderColor="Indigo" Margin="10,50" BackgroundColor="White" CornerRadius="20">
+                <Grid RowDefinitions="50,*,50" ColumnDefinitions="*,10" BackgroundColor="Transparent" Margin="0" Padding="5,0">
+                    <Label Text="Informações do Pedido"  TextColor="Indigo" FontSize="22"  VerticalOptions="Start" HorizontalOptions="Center"/>
+                    <!--<Grid Grid.Row="0" ColumnDefinitions="30,1*">
+                    <ImageButton Source="IconBackIndigo" Grid.Column="0" BackgroundColor="Transparent" Command="{ Binding VoltarPageCommand }"/>
+                </Grid>-->
+                    <StackLayout Grid.ColumnSpan="1" Grid.Row="1" Padding="0" Margin="0">
+                        <Label Text="Endereço" FontSize="17" TextColor="Indigo"/>
+                        <Entry Placeholder="Rua, avenida, travessa, etc" MaxLength="60" Text="{Binding Enderecoo.Rua}"
+                                Style="{StaticResource PrimarmyTextColor}" />
+                        <BoxView Color="Indigo" HeightRequest="1"/>
+                        <Grid ColumnDefinitions="1*,1*" Margin="0" Padding="0" >
+                            <StackLayout  >
+                                <Label Text="Número" FontSize="16" TextColor="Indigo"/>
+                                <Entry Text="{Binding Enderecoo.Numero}" MaxLength="10" Keyboard="Numeric" Placeholder="Digite o número"
+                                        Style="{StaticResource PrimarmyTextColor}" />
+                                <BoxView Color="Indigo" HeightRequest="1"/>
+                            </StackLayout>
+                            <StackLayout Grid.Column="1">
+                                <Label Text="Complemento" FontSize="16" TextColor="Indigo" VerticalOptions="End"/>
+                                <Entry Placeholder="Apto, bloco, etc" MaxLength="40" Text="{Binding Enderecoo.Complemento}" 
+                                       Style="{StaticResource PrimarmyTextColor}"  />
+                                <BoxView Color="Indigo" HeightRequest="1"/>
+
+                            </StackLayout>
+                        </Grid>
+                        <Label Text="Bairro" FontSize="17" TextColor="Indigo"/>
+                        <Entry Placeholder="Bairro, comunidade, região, etc" MaxLength="60" Text="{Binding Enderecoo.Bairro}"
+                               Style="{StaticResource PrimarmyTextColor}" />
+                        <BoxView Color="Indigo" HeightRequest="1"/>
+
+                        <Label Text="Ponto de Referencia" FontSize="17" TextColor="Indigo"/>
+                        <Frame  Margin="0" Padding="0"  HasShadow="False">
+                            <Entry  x:Name="EntryA" MaxLength="60" Text="{Binding Enderecoo.Referencia}" 
+                                    Placeholder="cor da casa, proximo de... etc"  Style="{StaticResource PrimarmyTextColor}" />
+                        </Frame>
+                        <BoxView Color="Indigo" HeightRequest="1"/>
+                        <Label Text="CEP" FontSize="17" TextColor="Indigo"/>
+                        <!--Depois colocar mascara-->
+                        <Entry Placeholder="Digite o CEP da sua Cidade" MaxLength="8" 
+                               Text="{Binding Enderecoo.Cep}"  Keyboard="Numeric" Style="{StaticResource PrimarmyTextColor}" />
+                        <BoxView Color="Indigo" HeightRequest="1"/>
+                        <Grid ColumnDefinitions="3*,1*" Padding="0" Margin="0">
+                            <StackLayout Grid.Column="0" Padding="0,0">
+                                <Label Text="Municipio" FontSize="16" TextColor="Indigo"/>
+                                <Entry Placeholder="ex. Serrinha, Salvador, Coité, etc" MaxLength="40"  Text="{Binding Enderecoo.Municipio}" 
+                                       Style="{StaticResource PrimarmyTextColor}" WidthRequest="450"  />
+                                <BoxView Color="Indigo" HeightRequest="1"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="1" Margin="0,0">
+                                <Label Text="UF" FontSize="16" TextColor="Indigo"/>
+                                <Entry Placeholder="ex. BA, SP, RJ, etc" Text="{Binding Enderecoo.UF}" MaxLength="2"
+                                       Style="{StaticResource PrimarmyTextColor}" />
+                                <BoxView Color="Indigo" HeightRequest="1"/>
+                            </StackLayout>
+                        </Grid>
+
+                    </StackLayout>
+                    <Button  Grid.Row="2" HorizontalOptions="Fill" VerticalOptions="End"
+                        CornerRadius="10" 
+                        Text="Gravar" Command="{Binding GravarEnderecoCommand}" FontSize="22" BackgroundColor="Indigo" TextColor="White"/>
+                    <Button ImageSource="excluir" Grid.Column="1" BackgroundColor="Transparent" Margin="-30,-25"
+                            Command="{Binding VoltarPageCommand}" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"  />
+
+                </Grid>
+            </Frame>
+        </FlexLayout>
+    </ContentPage.Content>
+</ContentPage>

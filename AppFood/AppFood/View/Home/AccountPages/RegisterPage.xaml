@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
+             BackgroundColor="FloralWhite"
+             x:Class="AppFood.View.Home.Account.RegisterPage">
+    <ContentPage.Content>
+        <StackLayout  Padding="30,0" TranslationY="30"  HorizontalOptions="Center" VerticalOptions="CenterAndExpand" >
+            <StackLayout.Triggers>
+                <DataTrigger TargetType="StackLayout" Binding="{Binding Source={x:Reference txtLogin}, Path=IsFocused}" Value="True">
+                    <Setter Property="HorizontalOptions" Value="Start"/>
+                    <Setter Property="VerticalOptions" Value="Start"/>
+                </DataTrigger>
+            </StackLayout.Triggers>
+            <Label/>
+            <FlexLayout Margin="0" Padding="0">
+                <Frame CornerRadius="20" Margin="5,10"  HorizontalOptions="Center" VerticalOptions="Center">
+                    <FlexLayout>
+                        <Image x:Name="txtLogin" Source="userLogin" WidthRequest="30" Margin="0,0" />
+                        <Entry Placeholder="Nome" Text="{Binding Nome}" FontSize="17"  Margin="4,0,0,0"
+                               WidthRequest="200" TextColor="Indigo" PlaceholderColor="Indigo" />
+                    </FlexLayout>
+                </Frame>
+                <Frame CornerRadius="20" Margin="5,10"  HorizontalOptions="Center" VerticalOptions="Center">
+                    <FlexLayout>
+                        <Entry Placeholder="Sobrenome" Text="{Binding SobreNome}" FontSize="17"  Margin="4,0,0,0"
+                               WidthRequest="200" TextColor="Indigo" PlaceholderColor="Indigo" />
+                    </FlexLayout>
+                </Frame>
+            </FlexLayout>
+            <Frame CornerRadius="20" Margin="0,10"  HorizontalOptions="Center" VerticalOptions="Center">
+                <FlexLayout>
+                    <Entry Placeholder="E-mail" WidthRequest="300" Text="{Binding Email}" FontSize="17" Margin="4,0,0,0"
+                                   TextColor="Indigo" PlaceholderColor="Indigo" />
+                </FlexLayout>
+            </Frame>
+            <Frame CornerRadius="20"  Margin="0,10">
+                <FlexLayout>
+                    <Entry Placeholder="Nova Senha" IsPassword="True" Text="{Binding Senha}" WidthRequest="300"  FontSize="17" Margin="4,0,0,0" TextColor="Indigo"
+                                   PlaceholderColor="Indigo" />
+                </FlexLayout>
+            </Frame>
+            <Frame CornerRadius="20"  Margin="0,10">
+                <FlexLayout>
+                    <Entry Placeholder="Numero" Keyboard="Numeric"  WidthRequest="300" Text="{Binding Numero}"  FontSize="17" Margin="4,0,0,0" TextColor="Indigo"
+                                   PlaceholderColor="Indigo" />
+                </FlexLayout>
+            </Frame>
+
+            <Button Text="Criar" Command="{Binding CriarContaCommand}" CommandParameter="{Binding Conta}" TextColor="White" Margin="20" Padding="15" BackgroundColor="Indigo" WidthRequest="200" CornerRadius="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <BoxView BackgroundColor="Gray" HeightRequest="0.5" Margin="20,0"/>
+            <Label HorizontalOptions="Center" Margin="20" Padding="5">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding VoltarCommand}"/>
+                </Label.GestureRecognizers>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Já possui uma conta?" TextColor="Black"/>
+                        <Span Text="   Faça" TextColor="Black"/>
+                        <Span Text=" Login " FontSize="17" TextColor="Green"/>
+                        
+                        <Span Text="Aqui!" TextColor="Black"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <!--<Button Text="Voltar" HorizontalOptions="End" TextColor="Red" Margin="20" Padding="5" BackgroundColor="Transparent"/>-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

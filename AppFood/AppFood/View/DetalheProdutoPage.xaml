@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="White"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Name="this"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="AppFooD.View.DetalheProdutoPage">
+    <ContentPage.Content>
+        <Grid RowDefinitions="80,*,70">
+            <Frame BackgroundColor="Indigo" CornerRadius="0" Padding="3" Margin="0 " >
+                <Grid ColumnDefinitions="1*,*,1*" HeightRequest="80">
+                    <Frame Grid.Column="0" HorizontalOptions="Start" BackgroundColor="Transparent" Padding="-10" VerticalOptions="Center">
+                        <Button ImageSource="IconBack"  Command="{Binding VoltarPageCommand}" HorizontalOptions="Start" BackgroundColor="Transparent" VerticalOptions="Start"/>
+                    </Frame>
+                    <Frame Grid.Column="2" CornerRadius="20" BorderColor="WhiteSmoke"  BackgroundColor="Transparent" HorizontalOptions="End" VerticalOptions="End" Margin="10"  Padding="0" >
+                        <Button ImageSource="shoppingcart" Padding="10" TextColor="WhiteSmoke"  Text="{Binding QtdItensPedido}"   
+                                  BackgroundColor="Transparent"  Command="{Binding AbrirTelaCarrinhoCompraCommand}"/>
+                    </Frame>
+                </Grid>
+            </Frame>
+            <ScrollView Grid.Row="1">
+                    <Grid RowDefinitions="auto,auto" >
+                        <Frame HeightRequest="210" Grid.Row="0" Margin="10"  BackgroundColor="Indigo"  CornerRadius="20"
+                           TranslationY="-10" HasShadow="False" Padding="3"  IsClippedToBounds="True">
+                            <Image Source="{Binding ProdutoSelect.Logo }" Aspect="AspectFill" Margin="-10"  />
+                        </Frame>
+                        <StackLayout  Padding="10" Grid.Row="1">
+                            <Label Text="{Binding ProdutoSelect.Nome}" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand" TextColor="Black" FontSize="20" FontFamily="sans-serif"/>
+                            <Label TextColor="Black" VerticalOptions="End" HorizontalOptions="End"   FontSize="22" FontAttributes="Bold">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{} R$ {0:F2}">
+                                        <Binding Path="ProdutoSelect.Preco" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                            <Line X1="0" X2="0" Y1="0" Y2="1"  BackgroundColor="Black"/>
+                            <xct:Expander  BackgroundColor="Transparent"  IsVisible="False">
+                            <xct:Expander.Triggers>
+                                <DataTrigger TargetType="xct:Expander" Binding="{Binding ProdutoSelect.TipoProduto}" Value="Pizza">
+                                    <Setter Property="IsVisible" Value="True"/>
+                                </DataTrigger>
+                            </xct:Expander.Triggers>
+                                <xct:Expander.Header>
+                                    <Label Text="Selecione o Tamanho "
+                                               TextColor="Indigo"
+                                               FontSize="Medium" />
+                                </xct:Expander.Header>
+                                <StackLayout BackgroundColor="White">
+
+                                    <RadioButton IsChecked="{Binding .}"  Content="Pizza pequena" TextColor="Black" />
+                                    <RadioButton Content="Pizza media" TextColor="Black" />
+                                    <RadioButton Content="Pizza grande" Value="d"  TextColor="Black" />
+                                    <RadioButton Content="Pizza familia"  TextColor="Black" />
+                                </StackLayout>
+                            </xct:Expander>
+
+                            <StackLayout x:Name="StackL" IsVisible="False" BackgroundColor="Transparent">
+                                <StackLayout.Triggers>
+                                    <DataTrigger TargetType="StackLayout" Binding="{Binding ProdutoSelect.TipoProduto}" Value="Pizza">
+                                        <Setter Property="IsVisible" Value="True"/>
+                                    </DataTrigger>
+                                </StackLayout.Triggers>
+
+                                <Line X1="0" X2="0" Y1="0" Y2="1"  BackgroundColor="Gray" Margin="10,5"/>
+                                <Label Text="{Binding ProdutoSelect.Descricao}" Padding="10" TextColor="Gray" FontSize="20"/>
+                                <Line X1="0" X2="0" Y1="0" Y2="1"   BackgroundColor="Gray" Margin="10,5"/>
+                            </StackLayout>
+                            <!--<Label Margin="10,3">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Alguma " FontSize="16" TextColor="#5000a6"/>
+                                            <Span Text="observação?" FontSize="22" TextColor="#8923f7"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>-->
+                            <Frame CornerRadius="10" BorderColor="Indigo" Margin="0,10">
+                                <Editor Placeholder="Alguma observação..." BackgroundColor="Transparent" HeightRequest="100"  Text="{Binding Observacao}"  PlaceholderColor="Gray" TextColor="Black" AutoSize="TextChanges"/>
+                            </Frame>
+                        </StackLayout>
+                    </Grid>
+            </ScrollView>
+
+            <Frame Grid.Row="2"  BorderColor="WhiteSmoke" HorizontalOptions="End" VerticalOptions="End" Margin="0"  Padding="0">
+                <Grid ColumnDefinitions="1*,2*"  BackgroundColor="Transparent">
+                    <Grid   ColumnDefinitions="1*,1*,1*" >
+                        <Button BackgroundColor="Transparent" Command="{Binding DiminQtde}" FontSize="25" TextColor="Black" Text="-" Grid.Column="0"/>
+                        <Label Text="{Binding Quantidade}" TextColor="Black" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                               FontSize="20" Grid.Column="1" BackgroundColor="White"/>
+                        <Button BackgroundColor="Transparent" Command="{Binding AddQtde}" FontSize="20" TextColor="Black" Text="+" Grid.Column="2"/>
+
+                    </Grid>
+                    <Frame  Grid.Column="1"  BackgroundColor="Indigo"  >
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AdicionarProdutoCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="2*,1*" >
+                            <Label Text="Adicionar" TextColor="White" Grid.Column="0" FontSize="18" VerticalOptions="StartAndExpand"/>
+                            <Label Text="{Binding ValorTotal,  StringFormat='{0:F2}'}" Grid.Column="1"  TextColor="White" FontSize="17" VerticalOptions="EndAndExpand" />
+                        </Grid>
+                    </Frame>
+                        
+                    <!--<Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference PickerS}, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference PickerT}, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Button.Triggers>-->
+                </Grid>
+            </Frame>
+            <!--<Label  Grid.Row="3" Padding="10" HorizontalOptions="End" VerticalOptions="End" Text="{Binding ValorTotal,  StringFormat='{0:F2}'}" TextColor="White"/>-->
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+
+
+
+<!--<FlexLayout Grid.Row="2">
+    <StackLayout  Orientation="Vertical"    Margin="0,-40,0,0">
+        <Picker x:Name="PickerT"  BackgroundColor="Transparent" TextColor="Black" Margin="10,40,-10,-50"   
+                        FontSize="22" Title="Selecione Quantidade :" SelectedItem="{Binding ItemSelecionado}"  TitleColor="Black">
+            <Picker.Items>
+                <x:String>1</x:String>
+                <x:String>2</x:String>
+                <x:String>3</x:String>
+                <x:String>4</x:String>
+                <x:String>5</x:String>
+                <x:String>6</x:String>
+                <x:String>7</x:String>
+                <x:String>8</x:String>
+                <x:String>9</x:String>
+            </Picker.Items>
+        </Picker>
+        <Label x:Name="lblText" FontSize="20"
+    TextColor="Indigo" BackgroundColor="Transparent" Margin="0,-3,10,0" VerticalOptions="EndAndExpand"  Grid.Row="1" HorizontalOptions="EndAndExpand">
+            <Label.Triggers>
+                <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference PickerT},
+                                       Path=SelectedIndex}"  Value="-1">
+                    <Setter Property="IsVisible" Value="False"/>
+                </DataTrigger>
+            </Label.Triggers>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="R$ "/>
+                    <Span  Text="{Binding ValorTotal,  StringFormat='{0:F2}'}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <BoxView BackgroundColor="Indigo" HorizontalOptions="Fill" VerticalOptions="End"  Margin="0,5" HeightRequest="1">
+            <BoxView.Triggers>
+                <DataTrigger TargetType="BoxView" Binding="{Binding Source={x:Reference PickerT},
+                                       Path=SelectedIndex}"  Value="-1">
+                    <Setter Property="IsVisible" Value="False"/>
+                </DataTrigger>
+            </BoxView.Triggers>
+        </BoxView>
+
+    </StackLayout>
+    <Button Text="+"  Grid.Row="3" Command="{Binding AdicionarProdutoCommand}"  FontSize="30" FontAttributes="Bold"
+                    BackgroundColor="Indigo" TextColor="White">
+        <Button.Triggers>
+            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference PickerS}, Path=SelectedIndex}" Value="-1">
+                <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference PickerT}, Path=SelectedIndex}" Value="-1">
+                <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+        </Button.Triggers>
+    </Button>
+</FlexLayout>-->
+
+<!--<FlexLayout>
+    <Picker x:Name="PickerS"  Title="Selecione o Tamanho : "  SelectedIndex="{Binding IndexSelect}" TitleColor="#b04dff" SelectedItem="{Binding Source={x:Reference PickerS}}"
+                                    FontSize="20"  Margin="5" TextColor="Black" >
+
+        <Picker.Items>
+            <x:String>PIZZA PEQUENA</x:String>
+            <x:String>PIZZA MEDIA</x:String>
+            <x:String>PIZZA GRANDE</x:String>
+            <x:String>PIZZA FAMILIA</x:String>
+        </Picker.Items>
+    </Picker>
+    <Label TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center">
+        <Label.Triggers>
+            <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference PickerS},
+                                           Path=SelectedIndex}"  Value="-1">
+                <Setter Property="IsVisible" Value="False"/>
+            </DataTrigger>
+        </Label.Triggers>
+        <Label.FormattedText>
+            <FormattedString>
+                <Span Text="R$ " FontSize="11" TextColor="Black"/>
+                <Span Text="{Binding PrecoTamanhoPizza, StringFormat='{0:F2}'}" FontSize="21" TextColor="Black"/>
+            </FormattedString>
+        </Label.FormattedText>
+    </Label>
+</FlexLayout>-->

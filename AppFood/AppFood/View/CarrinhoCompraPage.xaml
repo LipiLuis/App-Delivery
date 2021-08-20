@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="WhiteSmoke"
+             x:Name="this"
+             x:Class="AppFooD.View.CarrinhoCompraPage">
+    <ContentPage.Content>
+    <Grid  RowDefinitions="75,*,80">
+            <Frame BackgroundColor="Indigo" Grid.Row="0" CornerRadius="0">
+                <Grid ColumnDefinitions="1*,1,1*" Margin="-15">
+                    <ImageButton Source="IconBack" Command="{Binding VoltarPageCommand}"  BackgroundColor="Indigo"  Grid.Column="0"  
+                                 Padding="10" HorizontalOptions="Start"  VerticalOptions="Center"/>
+                    <Line Grid.Column="1" BackgroundColor="White" HeightRequest="1"   X1="0" X2="0" Y1="0" Y2="96" />
+                    <Button Grid.Column="2"  BackgroundColor="Indigo" Command="{Binding Source={x:Reference this}, Path=BindingContext.CadastrarPedidosCommmand}"
+                            CommandParameter="{Binding ProdutosCarrinhoCompra}"
+                            Text="Confirmar" Padding="10" HorizontalOptions="End" TextColor="White"   VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+            <CollectionView x:Name="ListProdutCar" Grid.Row="1"   ItemsSource="{Binding ProdutosCarrinhoCompra}" Margin="10,10">
+
+                <CollectionView.EmptyView>
+
+                    <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                TextColor="Indigo"                       
+                                VerticalTextAlignment="Center"
+                                HorizontalTextAlignment="Center"
+                                HorizontalOptions="End"
+                                VerticalOptions="End"
+                                Text="Carrinho vazio" />
+
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <FlexLayout>
+                        <Frame BorderColor="WhiteSmoke" Padding="0" Margin="0" >
+                            <StackLayout   Margin="2" Padding="0" BackgroundColor="White">
+                                <Grid  ColumnDefinitions="auto,auto,auto,auto" Margin="10" RowDefinitions="auto,auto,auto">
+                                    <StackLayout  Grid.Row="0" Margin="0,-10" VerticalOptions="Start" HorizontalOptions="End" Grid.Column="3">
+
+                                        <Frame  BackgroundColor="Transparent" Padding="10" >
+
+                                                <Image  Source="excluir" Aspect="Fill" >
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.ExcluirProdutoCarrinhoCommand}" 
+                                                                              CommandParameter="{Binding . }"/>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                                    
+                                            </Frame>
+
+                                    </StackLayout>
+                                    <Image Grid.Column="0" WidthRequest="80" VerticalOptions="Start" Margin="-10,-30" 
+                                           HorizontalOptions="Start" HeightRequest="100" Source="{Binding Produto.Logo}"/>
+                                    
+                                    <Label Grid.Column="1"  MaxLines="4"  Padding="0" Margin="10,0,0,0" WidthRequest="360" HorizontalOptions="Fill" BackgroundColor="Transparent" VerticalOptions="EndAndExpand" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span  Text="{Binding Produto.Nome}" FontSize="16" CharacterSpacing="1"  FontAttributes="Bold"   TextColor="Black" />
+                                                <Span  Text="&#10;"/>
+                                                <Span  Text=" R$ : " CharacterSpacing="1" FontSize="Body" TextColor="Indigo"/>
+                                                <Span Text="{Binding Produto.Preco, StringFormat='{0:F2}'}" FontSize="Body" TextColor="Indigo"/>
+                                                <Span  Text="&#10;"/>
+                                                <Span  Text="{Binding Produto.Descricao}" CharacterSpacing="1" FontSize="15"  TextColor="Gray" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.ColumnSpan="4" Grid.Row="2"   HorizontalOptions="Start" Margin="5">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Preço Total : " FontSize="17" TextColor="Black"  FontAttributes="Bold"/>
+                                                <Span Text="{Binding Produto.ValorTotal, StringFormat='{0:F2}'}" TextColor="Green" FontAttributes="Bold" FontSize="18"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label Grid.ColumnSpan="4" Grid.Row="2"  HorizontalOptions="End" Margin="5">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="x " FontSize="15" TextColor="Black" />
+                                                <Span Text="{Binding Produto.Qtde}" TextColor="Black" FontSize="20" FontAttributes="Bold"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                        </FlexLayout>
+                        <!--<Line  BackgroundColor="Gray" HeightRequest="1"  X1="0" X2="0" Y1="0" Y2="96"/>-->
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Frame x:Name="FrameX" Padding="0" Margin="10" CornerRadius="40"  
+                   Grid.Row="1"  BackgroundColor="Transparent" BorderColor="Red" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand">
+                <Frame.Triggers>
+                    <DataTrigger TargetType="Frame" Binding="{Binding Source={x:Reference ListProdutCar}, Path=BindingContext.ProdutosCarrinhoCompra.Count}" Value="0">
+                        <Setter Property="BorderColor" Value="Indigo"/>
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                </Frame.Triggers>
+                <Button    x:Name="ButtonClear" ImageSource="binn" 
+                    Command="{Binding LimpaItensCarrinhoCommand}" BackgroundColor="Transparent" 
+                      Margin="0">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference ListProdutCar}, Path=BindingContext.ProdutosCarrinhoCompra.Count}" Value="0">
+                            <Setter Property="ImageSource" Value="deletee"/>
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+
+                    </Button.Triggers>
+                </Button>
+
+            </Frame>
+            <Frame BackgroundColor="Indigo" Grid.Row="2" Margin="0" Padding="10">
+                <StackLayout>
+                    <Label HorizontalOptions="End" VerticalOptions="Center" HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Valor Total R$ :  " FontSize="20" TextColor="White"/>
+                                <Span Text="{Binding ValorTotal, StringFormat='{0:F2}'}" FontSize="20" TextColor="Green"/>
+                                <Span Text="&#10;" />
+                                <Span Text="       Produtos : " TextColor="White"/>
+                                <Span Text="{Binding ProdutosCarrinhoCompra.Count}" TextColor="White"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
